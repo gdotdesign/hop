@@ -115,7 +115,7 @@ menu address model =
     H.div [] [
       H.div [] [ H.text "Using actions: " ],
       -- Here we should change the route in a nicer way
-      menuBtn address (NavigateTo "/users") "Users",
+      menuBtn2 address "/users" "Users",
       menuBtn address (NavigateTo "/users/1") "User 1",
       menuBtn address (NavigateTo "/users/2") "User 2",
       menuBtn address (NavigateTo "/users/1/edit") "User Edit 1",
@@ -145,6 +145,12 @@ menuBtn address action label =
  H.button [ Html.Events.onClick address action ] [
   H.text label
  ]
+
+menuBtn2 : Signal.Address Action -> String -> String -> H.Html
+menuBtn2 address route label =
+   H.button [ Html.Events.onClick address (router.navigateTo route) ] [
+    H.text label
+  ]
 
 menuLink : String -> String -> H.Html
 menuLink path label =

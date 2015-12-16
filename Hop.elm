@@ -28,7 +28,8 @@ type alias Config partialAction = {
 type alias Router action = {
     signal: Signal action,
     payload: Payload,
-    run: Task () ()
+    run: Task () (),
+    navigateTo: String -> Task () ()
   }
 
 type alias RouteDefinition action = (String, action)
@@ -44,7 +45,8 @@ new config =
   {
     signal = hashChangeSignal config,
     payload = newPayload,
-    run = History.setPath ""
+    run = History.setPath "",
+    navigateTo = navigateTo2
   }
 
 {-
@@ -71,6 +73,10 @@ userActionFromUrlString config urlString =
       } 
   in
     userAction payload
+
+navigateTo2 : String -> Task () ()
+navigateTo2 route =
+  History.setPath route
 
 {-
   Changes the location (hash and query)
